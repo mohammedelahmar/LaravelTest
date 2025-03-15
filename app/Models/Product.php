@@ -9,4 +9,11 @@ class Product extends Model
 {
     use HasFactory;
     protected $table='products';
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    public function tags(){
+        return $this->belongsToMany(Tag::class)->withPivot(['created_at','updated_at']);
+    }
+
 }

@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
   public function index(){
-    $categories=Category::all();
-    // where('name','like','%1%')
-    // ->select('id','name')
+    $categories=Category::with(['products' => function($query){
+      $query->where('id',2);
+    }])->get();
+    return view('category.index',['categories'=>$categories  ]);
+    // $categories=Category::whereHas('products',function($query){
+    //   $query->where('id',2)->orderBy('id','desc');
+    // })
     // ->get();
-    echo $categories;
+    // return $categories;
   }
   public function create(){
     echo 'Create Category Page';
